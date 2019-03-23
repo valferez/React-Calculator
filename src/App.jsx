@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
+import { Title } from "./components/Title";
 import { Button } from "./components/Button";
 import { Input } from "./components/Input";
 import { ClearButton } from "./components/ClearButton";
+import { Credit } from "./components/Credit";
 import * as math from "mathjs";
 
 class App extends Component {
@@ -16,7 +18,8 @@ class App extends Component {
       operator: "",
       process: "",
       resultInput: "",
-      operatorBool: false
+      operatorBool: false,
+      dotBool: false
     };
   }
 
@@ -26,17 +29,59 @@ class App extends Component {
     let operator = this.state.operator;
     let resultInput = this.state.resultInput;
     let operatorBool = this.state.operatorBool;
+    let dotBool = this.state.dotBool;
+    let display = this.state.display;
 
     if (isNaN(val)) {
       console.log("It's an Operator");
       if (val === ".") {
-        alert("The Dot (.) button is still in progress");
+        if (dotBool === false) {
+          if (operatorBool === false) {
+            if (input === "") {
+              console.log("But it's a DOT");
+              this.setState({
+                dotBool: true,
+                display: display + val,
+                input: display + val
+              });
+            }
+            else {
+              this.setState({
+                dotBool: true,
+                display: input + val,
+                input: input + val
+              });
+            }
+          }
+          else {
+            if (dotBool === false) {
+              if (inputTwo === "") {
+                console.log("But it's a DOT");
+                this.setState({
+                  dotBool: true,
+                  display: input + operator + "0" + val,
+                  inputTwo: "0" + val
+                });
+              }
+              else {
+                this.setState({
+                  dotBool: true,
+                  display: input + operator + inputTwo + val,
+                  inputTwo: inputTwo + val,
+                  process: input + operator + inputTwo + val
+                });
+              }
+            }
+          }
+
+        }
       } else {
         if (operatorBool === false) {
           this.setState({
             operator: val,
             display: input + val,
-            operatorBool: true
+            operatorBool: true,
+            dotBool: false
           });
         } else if (input !== "" && operator !== "" && inputTwo !== "") {
           this.handleEqualOperation(val);
@@ -49,10 +94,8 @@ class App extends Component {
       }
       console.log(operatorBool);
     } else {
-      console.log("It's a Number");
       if (operatorBool === false) {
         if (input === "") {
-          console.log("but It's a ZERO");
           this.setState({
             display: val,
             input: val
@@ -106,7 +149,8 @@ class App extends Component {
       operator: "",
       process: "",
       resultInput: "",
-      operatorBool: false
+      operatorBool: false,
+      dotBool: false
     });
   };
 
@@ -123,7 +167,8 @@ class App extends Component {
         inputTwo: "",
         operator: "",
         resultInput: math.eval(this.state.process),
-        operatorBool: false
+        operatorBool: false,
+        dotBool: false
       });
     }
   };
@@ -140,7 +185,8 @@ class App extends Component {
         inputTwo: "",
         operator: val,
         resultInput: math.eval(this.state.process),
-        operatorBool: true
+        operatorBool: true,
+        dotBool: false
       });
     }
   };
@@ -149,6 +195,9 @@ class App extends Component {
     return (
       <div className="app">
         <div className="calc-wrapper">
+          <div className="row">
+            <Title></Title>
+          </div>
           <Input input={this.state.display} />
           <div className="row">
             <Button handleClick={this.addToInput}>7</Button>
@@ -177,6 +226,7 @@ class App extends Component {
           <div className="row">
             <ClearButton handleClear={this.handleClear}>Clear</ClearButton>
           </div>
+          <Credit></Credit>
         </div>
       </div>
     );
