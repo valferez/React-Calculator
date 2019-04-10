@@ -10,3 +10,17 @@
     flex: 1;
     outline: 1px solid #888888;
 }
+
+/*Clear*/
+div#clear:hover {
+    cursor: pointer;
+    background: #aeacb9;
+    color: white;
+    font-weight: 700;
+}
+
+div#clear:active {
+    cursor: pointer;
+	background: #B3C2D3;
+	text-align: center;
+}
