@@ -1,0 +1,38 @@
+$colors: (
+    close: #ffffff
+);
+
+@each $button, $color in $colors {
+    .#{$button} {
+      --color: #{$color};
+      --hover: #{adjust-hue($color, 10deg)};
+    }
+  }
+
+.clear-btn{
+    height: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: lighter;
+    font-size: 1.4em;
+    flex: 1;
+    color: #888888;
+    outline: 1px solid #888888;
+    background-color: #c5c3cd;
+    transition: 0.25s;
+    
+    &:hover,
+    &:focus { 
+        border-color: var(--hover);
+        color: #fff;
+        background-color: #ffa260;
+        font-weight: bold;
+    }
+}
+
+.close:hover,
+.close:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}

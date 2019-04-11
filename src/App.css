@@ -4,6 +4,11 @@
   align-items: center;
   height: 100vh;
   width: 100%;
+  background-color: #17181c;
+  /* background-color: #504B48; */
+  background-image: url(image/ink_splash.png);
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .calc-wrapper{
